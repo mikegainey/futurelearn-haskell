@@ -4,10 +4,10 @@
 -- A cow is a correct digit in the wrong position
 
 moo :: Int -> IO ()
-moo secretNum = moo' secretNum 1
+moo secretNum = mooWithCounter secretNum 1
 
-moo' :: Int -> Int -> IO ()
-moo' secretNum moves = do
+mooWithCounter :: Int -> Int -> IO ()
+mooWithCounter secretNum moves = do
   putStr "\nWhat is your guess? "
   guessStr <- getLine
   let guessNum = read guessStr :: Int
@@ -15,7 +15,7 @@ moo' secretNum moves = do
   if bulls == 4
     then putStrLn $ "You won in " ++ (show moves) ++ " moves!\n"
     else do putStrLn $ show bulls ++ " bulls, and " ++ show cows ++ " cows"
-            moo' secretNum (moves + 1)
+            mooWithCounter secretNum (moves + 1)
 
 pureMoo :: Int -> Int -> (Int, Int)
 pureMoo secretNum guessNum = (bulls secret guess, cows secret guess)
