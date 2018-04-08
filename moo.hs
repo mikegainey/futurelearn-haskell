@@ -1,13 +1,21 @@
 -- Bulls and Cows game: https://en.wikipedia.org/wiki/Bulls_and_Cows
+-- to start:  *Main> moo 9305  -- where 9305 is the secret number to guess
+-- A bull is a correct digit in the correct position
+-- A cow is a correct digit in the wrong position
 
-moo secretNum = do
-  putStr "What is your guess? "
+moo :: Int -> IO ()
+moo secretNum = moo' secretNum 1
+
+moo' :: Int -> Int -> IO ()
+moo' secretNum moves = do
+  putStr "\nWhat is your guess? "
   guessStr <- getLine
   let guessNum = read guessStr :: Int
   let (bulls, cows) = pureMoo secretNum guessNum
-  print (bulls, cows)
-  moo secretNum
-
+  if bulls == 4
+    then putStrLn $ "You won in " ++ (show moves) ++ " moves!\n"
+    else do putStrLn $ show bulls ++ " bulls, and " ++ show cows ++ " cows"
+            moo' secretNum (moves + 1)
 
 pureMoo :: Int -> Int -> (Int, Int)
 pureMoo secretNum guessNum = (bulls secret guess, cows secret guess)
