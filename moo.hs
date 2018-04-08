@@ -1,5 +1,6 @@
 -- Bulls and Cows game: https://en.wikipedia.org/wiki/Bulls_and_Cows
 -- to start:  *Main> moo 9305  -- where 9305 is the secret number to guess
+-- The secret number should be a 4 digit number
 -- A bull is a correct digit in the correct position
 -- A cow is a correct digit in the wrong position
 
