@@ -1,11 +1,11 @@
 -- Bulls and Cows game: https://en.wikipedia.org/wiki/Bulls_and_Cows
 -- to start:  *Main> moo 9305  -- where 9305 is the secret number to guess
 -- The secret number should be a 4 digit number.  The digits must all be different.
--- A bull is a correct digit in the correct position
--- A cow is a correct digit in the wrong position
+-- A bull is a correct digit in the correct position.
+-- A cow is a correct digit in the wrong position.
 
 moo :: Int -> IO ()
--- given the secret number, calls the game loop with counter = 1
+-- given the secret number, call the game loop with counter = 1
 moo secretNum = mooWithCounter secretNum 1
 
 mooWithCounter :: Int -> Int -> IO ()
@@ -41,7 +41,7 @@ cows :: [Int] -> [Int] -> Int
 cows secret guess = (cattle secret guess) - (bulls secret guess)
 
 num2list :: Int -> [Int]
--- takes a multi-digit number and produces the corresponding list of digits
+-- takes a multi-digit number and returns the corresponding list of digits
 -- example: 1234 -> [1,2,3,4]
 num2list n
   | n < 10 = [n]
