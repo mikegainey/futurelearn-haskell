@@ -4,12 +4,12 @@
 -- A bull is a correct digit in the correct position
 -- A cow is a correct digit in the wrong position
 
--- given the secret number, calls the game loop with counter = 1
 moo :: Int -> IO ()
+-- given the secret number, calls the game loop with counter = 1
 moo secretNum = mooWithCounter secretNum 1
 
--- given the secret number and starting count, this is the game loop
 mooWithCounter :: Int -> Int -> IO ()
+-- given the secret number and starting count, this is the game loop
 mooWithCounter secretNum counter = do
   putStr "\nWhat is your guess? "
   guessStr <- getLine
@@ -20,29 +20,29 @@ mooWithCounter secretNum counter = do
     else do putStrLn $ show bulls ++ " bulls, and " ++ show cows ++ " cows"
             mooWithCounter secretNum (counter + 1)
 
--- given the secret number and the guess, returns a tuple: (bulls, cows)
 pureMoo :: Int -> Int -> (Int, Int)
+-- given the secret number and the guess, returns a tuple: (bulls, cows)
 pureMoo secretNum guessNum = (bulls secret guess, cows secret guess)
   where secret = num2list secretNum
         guess  = num2list guessNum
 
--- cattle = the number of all matches (cows + bulls)
 cattle :: [Int] -> [Int] -> Int
+-- cattle = the number of all matches (cows + bulls)
 cattle [] guess = 0
 cattle secret guess = length (filter (== head secret) guess)
                       + cattle (tail secret) guess
 
--- the number of matches in the correct position
 bulls :: [Int] -> [Int] -> Int
+-- the number of matches in the correct position
 bulls secret guess = length $ [(s,g) | (s,g) <- zip secret guess, s == g]
 
--- the number of cows = cattle - bulls
 cows :: [Int] -> [Int] -> Int
+-- the number of cows = cattle - bulls
 cows secret guess = (cattle secret guess) - (bulls secret guess)
 
+num2list :: Int -> [Int]
 -- takes a multi-digit number and produces the corresponding list of digits
 -- example: 1234 -> [1,2,3,4]
-num2list :: Int -> [Int]
 num2list n
   | n < 10 = [n]
   | otherwise = num2list (n `div` 10) ++ [(n `mod` 10)]
