@@ -1,4 +1,5 @@
--- guess the number
+-- guess the number, version 1
+-- to start:  *Main> guessthenumber 5  -- if you want to guess the number 5
 
 guessthenumber :: Int -> IO ()
 guessthenumber number = do
