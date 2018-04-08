@@ -1,4 +1,4 @@
--- guess the number, version 2
+-- guess the number, version 2.  Now generating a random number to guess.
 -- to start:  *Main> guessthenumber  -- with no arguments
 
 import System.Random
