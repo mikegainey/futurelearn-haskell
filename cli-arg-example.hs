@@ -1,3 +1,5 @@
+-- from https://gist.github.com/jeremysinger/c77de1342921e0834769b050a21527e1
+
 import System.Environment (getArgs)
 
 main :: IO ()
@@ -12,3 +14,8 @@ main = do
         in do
             starman word guesses
 
+-- Then you can do
+-- $ ghc starman.hs
+-- $ ./starman hello 3
+-- or
+-- $ runhaskell starman hello 3
