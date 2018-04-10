@@ -32,21 +32,11 @@ bulls secret guess = length $ [(s,g) | (s,g) <- zip secret guess, s == g]
 
 cows :: [Int] -> [Int] -> Int
 -- the number of cows = cattle - bulls
-cows secret guess = (cattleVer3 secret guess) - (bulls secret guess)
+cows secret guess = (cattleVer1 secret guess) - (bulls secret guess)
 
-cattleVer1 :: [Int] -> [Int] -> Int
--- cattleVer1 = the number of all matches (cows + bulls)
-cattleVer1 [] guess = 0
-cattleVer1 secret guess = length (filter (== head secret) guess)
-                      + cattleVer1 (tail secret) guess
-
-cattleVer2 :: [Int] -> [Int] -> Int
--- cattleVer2 = the number of all matches (cows + bulls)
-cattleVer2 secret guess = sum $ map (\s -> length $ filter (==s) guess) secret
-
-cattleVer3 :: [Int] -> [Int] -> Int
--- cattleVer3 = the number of all matches (cows + bulls)
-cattleVer3 secret guess = length $ [ 1 | s <- secret, g <- guess, s == g]
+cattle :: [Int] -> [Int] -> Int
+-- cattle = the number of all matches (cows + bulls)
+cattle secret guess = length $ [ (s,g) | s <- secret, g <- guess, s == g]
 
 num2list :: Int -> [Int]
 -- take a multi-digit number and return the corresponding list of digits
@@ -54,3 +44,10 @@ num2list :: Int -> [Int]
 num2list n
   | n < 10 = [n]
   | otherwise = num2list (n `div` 10) ++ [(n `mod` 10)]
+
+-- Notes
+-- 1. Bug: Start the program with moo 9502
+--         Guessing 0295 results in 0 bulls, and 3 cows (instead of 0 bulls & 4 cows).
+--         The problem is in num2list: num2list 0123 --> [1,2,3] instead of [0,1,2,3]
+-- 2. pureMoo calls both the bulls and the cows function; and the cows function calls the bulls function
+--    I could refactor so bulls is only called once, but at the expense of readability.
