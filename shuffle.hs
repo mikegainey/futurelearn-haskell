@@ -2,6 +2,8 @@
 -- This doesn't work.  I want a function that takes a list and returns a list
 -- made by shuffling the input list.
 -- example: [1,2,3,4,5] --> [3,1,4,5,2]
+-- Apparently, this is a difficult problem in Haskell.  Here's how to do it:
+-- https://wiki.haskell.org/Random_shuffle
 
 import System.Random
 
