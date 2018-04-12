@@ -4,15 +4,10 @@
 -- A bull is a correct digit in the correct position.
 -- A cow is a correct digit in the wrong position.
 
--- These imports are used for the shuffle function (that's not even used!)
-import System.Random
-import Data.Array.IO
-import Control.Monad
 
 moo :: String -> IO ()
 -- given the secret number string, call the game loop with counter = 1
 moo secretStr = mooWithCounter secret 1
-  -- where secret = take 4 $ shuffle [0..9] -- someday I'll learn how to do this
   where secret = str2list secretStr
 
 mooWithCounter :: [Int] -> Int -> IO ()
@@ -51,6 +46,11 @@ str2list str = map (\d -> read [d] :: Int) str
 -- This was copied from https://wiki.haskell.org/Random_shuffle because I
 -- couldn't figure out how to do it myself.
 
+-- The shuffle function is not used.
+-- import System.Random
+-- import Data.Array.IO
+-- import Control.Monad
+
 -- | Randomly shuffle a list
 --   /O(N)/
 shuffle :: [a] -> IO [a]
@@ -66,3 +66,8 @@ shuffle xs = do
     n = length xs
     newArray :: Int -> [a] -> IO (IOArray Int a)
     newArray n xs =  newListArray (1,n) xs
+
+--------------------------------------------------------------------------------
+
+-- Note: I tried to start this program with a random number but couldn't figure
+-- out how to do this: take 4 $ shuffle [0..9].
