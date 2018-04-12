@@ -4,6 +4,10 @@
 -- A bull is a correct digit in the correct position.
 -- A cow is a correct digit in the wrong position.
 
+import System.Random
+import Data.Array.IO
+import Control.Monad
+
 moo :: Int -> IO ()
 -- given the secret number, call the game loop with counter = 1
 moo secretNum = mooWithCounter secretNum 1
@@ -32,7 +36,7 @@ bulls secret guess = length $ [(s,g) | (s,g) <- zip secret guess, s == g]
 
 cows :: [Int] -> [Int] -> Int
 -- the number of cows = cattle - bulls
-cows secret guess = (cattleVer1 secret guess) - (bulls secret guess)
+cows secret guess = (cattle secret guess) - (bulls secret guess)
 
 cattle :: [Int] -> [Int] -> Int
 -- cattle = the number of all matches (cows + bulls)
@@ -44,6 +48,32 @@ num2list :: Int -> [Int]
 num2list n
   | n < 10 = [n]
   | otherwise = num2list (n `div` 10) ++ [(n `mod` 10)]
+
+str2list :: String -> [Int]
+-- given a "number string", return a list of digits: "0123" --> [0,1,2,3]
+str2list str = map (\d -> read [d] :: Int) str
+
+--------------------------------------------------------------------------------
+-- This will copy/pasted from https://wiki.haskell.org/Random_shuffle because I
+-- couldn't figure out how to do it myself.
+
+-- | Randomly shuffle a list
+--   /O(N)/
+shuffle :: [a] -> IO [a]
+shuffle xs = do
+        ar <- newArray n xs
+        forM [1..n] $ \i -> do
+            j <- randomRIO (i,n)
+            vi <- readArray ar i
+            vj <- readArray ar j
+            writeArray ar j vi
+            return vj
+  where
+    n = length xs
+    newArray :: Int -> [a] -> IO (IOArray Int a)
+    newArray n xs =  newListArray (1,n) xs
+
+--------------------------------------------------------------------------------
 
 -- Notes
 -- 1. Bug: Start the program with moo 9502
