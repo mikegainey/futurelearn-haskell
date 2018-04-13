@@ -44,30 +44,27 @@ str2list str = map (\d -> read [d] :: Int) str
 
 --------------------------------------------------------------------------------
 -- This was copied from https://wiki.haskell.org/Random_shuffle because I
--- couldn't figure out how to do it myself.
+-- couldn't figure out how to do it myself.  And I'm still not using it!
 
--- The shuffle function is not used.
+-- I tried to start this program with a random number but couldn't figure
+-- out how to do this: take 4 $ shuffle [0..9].
+
 -- import System.Random
 -- import Data.Array.IO
 -- import Control.Monad
 
 -- | Randomly shuffle a list
 --   /O(N)/
-shuffle :: [a] -> IO [a]
-shuffle xs = do
-        ar <- newArray n xs
-        forM [1..n] $ \i -> do
-            j <- randomRIO (i,n)
-            vi <- readArray ar i
-            vj <- readArray ar j
-            writeArray ar j vi
-            return vj
-  where
-    n = length xs
-    newArray :: Int -> [a] -> IO (IOArray Int a)
-    newArray n xs =  newListArray (1,n) xs
-
---------------------------------------------------------------------------------
-
--- Note: I tried to start this program with a random number but couldn't figure
--- out how to do this: take 4 $ shuffle [0..9].
+-- shuffle :: [a] -> IO [a]
+-- shuffle xs = do
+--         ar <- newArray n xs
+--         forM [1..n] $ \i -> do
+--             j <- randomRIO (i,n)
+--             vi <- readArray ar i
+--             vj <- readArray ar j
+--             writeArray ar j vi
+--             return vj
+--   where
+--     n = length xs
+--     newArray :: Int -> [a] -> IO (IOArray Int a)
+--     newArray n xs =  newListArray (1,n) xs
