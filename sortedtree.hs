@@ -49,9 +49,14 @@ isSortedTree2 (Node val left right) = sortedless left val && sortedmore right va
         sortedmore (Node val ltree rtree) x = (val >= x) && sortedmore ltree x && sortedmore rtree x
 
 insert :: Tree -> Int -> Tree
--- Given a Tree and Int, return a new Tree with the Int inserted
+-- given a Tree and Int, return a new Tree with the Int inserted
 insert Leaf val = Node val Leaf Leaf
 insert (Node nval left right) val =
   if val <= nval
      then Node nval (insert left val) right
      else Node nval left (insert right val)
+
+tree2list :: Tree -> [Int]
+-- doesn't need a helper function; output is not sorted
+tree2list Leaf = []
+tree2list (Node val left right) = val : (tree2list left ++ tree2list right)
