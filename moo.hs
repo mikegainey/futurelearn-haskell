@@ -1,14 +1,20 @@
 -- Bulls and Cows game: https://en.wikipedia.org/wiki/Bulls_and_Cows
--- to start:  *Main> moo "9305"  -- where 9305 is the secret number to guess
--- The secret number should be a 4 digit number.  The digits must all be different.
--- A bull is a correct digit in the correct position.
--- A cow is a correct digit in the wrong position.
+-- to start:  *Main> moo
 
+import System.Random
+import Data.Array.IO
+import Control.Monad
 
-moo :: String -> IO ()
+moo :: IO ()
 -- given the secret number string, call the game loop with counter = 1
-moo secretStr = mooWithCounter secret 1
-  where secret = str2list secretStr
+moo = do
+  putStrLn "\nThis is the Bulls and Cows game."
+  putStrLn "Guess the secret 4-digit number (where each digit appears only once)."
+  putStrLn "A bull is a correct digit in the correct position."
+  putStrLn "A cow is a correct digit in the wrong position."
+  secret <- fmap (take 4) (shuffle [0..9])
+  -- print secret  -- the secret number
+  mooWithCounter secret 1
 
 mooWithCounter :: [Int] -> Int -> IO ()
 -- given the secret number string and starting count; this is the game loop
@@ -44,27 +50,20 @@ str2list str = map (\d -> read [d] :: Int) str
 
 --------------------------------------------------------------------------------
 -- This was copied from https://wiki.haskell.org/Random_shuffle because I
--- couldn't figure out how to do it myself.  And I'm still not using it!
-
--- I tried to start this program with a random number but couldn't figure
--- out how to do this: take 4 $ shuffle [0..9].
-
--- import System.Random
--- import Data.Array.IO
--- import Control.Monad
+-- couldn't figure out how to do it myself.
 
 -- | Randomly shuffle a list
 --   /O(N)/
--- shuffle :: [a] -> IO [a]
--- shuffle xs = do
---         ar <- newArray n xs
---         forM [1..n] $ \i -> do
---             j <- randomRIO (i,n)
---             vi <- readArray ar i
---             vj <- readArray ar j
---             writeArray ar j vi
---             return vj
---   where
---     n = length xs
---     newArray :: Int -> [a] -> IO (IOArray Int a)
---     newArray n xs =  newListArray (1,n) xs
+shuffle :: [a] -> IO [a]
+shuffle xs = do
+        ar <- newArray n xs
+        forM [1..n] $ \i -> do
+            j <- randomRIO (i,n)
+            vi <- readArray ar i
+            vj <- readArray ar j
+            writeArray ar j vi
+            return vj
+  where
+    n = length xs
+    newArray :: Int -> [a] -> IO (IOArray Int a)
+    newArray n xs =  newListArray (1,n) xs
