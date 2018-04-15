@@ -25,7 +25,8 @@ mooWithCounter secret counter = do
   let (bulls, cows) = pureMoo secret guess
   if bulls == 4
     then putStrLn $ "You won in " ++ (show counter) ++ " moves!\n"
-    else do putStrLn $ (show bulls) ++ " bulls, and " ++ (show cows) ++ " cows"
+    else do putStrLn $ (show bulls) ++ " bull" ++ (plural bulls) ++ ", and "
+                    ++ (show cows) ++ " cow" ++ (plural cows)
             mooWithCounter secret (counter + 1)
 
 pureMoo ::[Int] -> [Int] -> (Int, Int)
@@ -47,6 +48,8 @@ cattle secret guess = length $ [ (s,g) | s <- secret, g <- guess, s == g]
 str2list :: String -> [Int]
 -- given a "number string", return a list of digits: "0123" --> [0,1,2,3]
 str2list str = map (\d -> read [d] :: Int) str
+
+plural x = if x == 1 then "" else "s"
 
 --------------------------------------------------------------------------------
 -- This was copied from https://wiki.haskell.org/Random_shuffle because I
