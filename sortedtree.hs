@@ -57,6 +57,7 @@ insert (Node nval left right) val =
      else Node nval left (insert right val)
 
 tree2list :: Tree -> [Int]
--- doesn't need a helper function; output is not sorted
+-- given a Tree, return a list of the tree's values
 tree2list Leaf = []
-tree2list (Node val left right) = val : (tree2list left ++ tree2list right)
+tree2list (Node val left right) = tree2list left ++ (val : tree2list right)
+-- After seeing CoderDennis's version, I rearranged the terms to return the values in order.
