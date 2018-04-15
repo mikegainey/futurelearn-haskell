@@ -8,8 +8,8 @@ import Control.Monad
 moo :: IO ()
 -- given the secret number string, call the game loop with counter = 1
 moo = do
-  putStrLn "\nThis is the Bulls and Cows game."
-  putStrLn "Guess the secret 4-digit number (where each digit appears only once)."
+  putStrLn "\nThis is the Bulls and Cows game: https://en.wikipedia.org/wiki/Bulls_and_Cows"
+  putStrLn "Guess the secret 4-digit number (each digit appears only once)."
   putStrLn "A bull is a correct digit in the correct position."
   putStrLn "A cow is a correct digit in the wrong position."
   secret <- fmap (take 4) (shuffle [0..9])
