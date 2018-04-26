@@ -14,3 +14,4 @@
    - [Monads are like Burritos Cartoon](http://chrisdone.com/posts/monads-are-burritos)
    - [Monads are like Burritos critique](https://byorgey.wordpress.com/2009/01/12/abstraction-intuition-and-the-monad-tutorial-fallacy/)
 - [Monads as Space Suits](http://web.archive.org/web/20081206204420/http://www.loria.fr/~kow/monads/index.html)
+- [Monads for functional programming, Philip Wadler (pdf)](http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf)
